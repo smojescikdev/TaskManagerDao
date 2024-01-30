@@ -9,16 +9,15 @@ import java.util.Arrays;
 public class UserDao {
 
     private static final String CREATE_USER_QUERY = " INSERT INTO workshop2.users (email, username,password) VALUES (?, ?, ?);";
-    private static final String MODIFY_DATA_QUERY = " UPDATE users\n" +
-            "SET email = '?',\n" +
-            "    username = '?',\n" +
-            "    password = '?o'\n" +
-            "WHERE id = ?; ";
+    private static final String MODIFY_DATA_QUERY = "UPDATE users " +
+            "SET email = ?, " +
+            "username = ?, " +
+            "password = ? " +
+            "WHERE id = ?;";
     private static final String SELECT_ID_QUERY = " SELECT id, email, username, password\n" +
             "FROM users\n" +
             "WHERE id = ?; ";
-    private static final String REMOVE_ID_QUERY = " DELETE FROM users\\n\" +\n" +
-            "            \"WHERE id = ?; ";
+    private static final String REMOVE_ID_QUERY = " DELETE FROM users WHERE id = ?; ";
     private static final String LIST_ALL_USERS_QUERY = " SELECT * FROM users; ";
 
 
@@ -76,6 +75,7 @@ public class UserDao {
                 statement.setString(1, user.getEmail());
                 statement.setString(2, user.getUserName());
                 statement.setString(3, hashPassword(user.getPassword()));
+                statement.setInt(4, user.getId());  // Dodajemy ustawienie parametru ID
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
@@ -83,7 +83,17 @@ public class UserDao {
         }
     }
 
+    public void delete(int userId) {
+        try (Connection conn = DbUtil.getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement(REMOVE_ID_QUERY)) {
+                statement.setInt(1, userId);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-
-
-}
+    }
