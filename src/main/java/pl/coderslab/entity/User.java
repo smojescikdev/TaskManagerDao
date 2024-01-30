@@ -2,6 +2,10 @@ package pl.coderslab.entity;
 
 public class User {
 
+    public User() {
+    }
+
+
     public int getId() {
         return id;
     }
@@ -39,4 +43,12 @@ public class User {
     private String email;
     private String password;
 
+
+    public User(int id, String email, String username, String password) {
+        this.id = id;
+        this.email = email;
+        this.userName = username;
+        this.password = password;
+    }
+    
 }

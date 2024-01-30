@@ -3,11 +3,12 @@ package pl.coderslab;
 import pl.coderslab.entity.User;
 import pl.coderslab.entity.UserDao;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class MainDao {
     public static void main(String[] args) {
-        deleteUser();
+        findAll();
 
     }
 
@@ -150,4 +151,19 @@ public class MainDao {
     }
 
 
+    public static void findAll() {
+        UserDao userDao = new UserDao();
+
+        // Wywołujemy metodę findAll z UserDao
+        User[] users = userDao.findAll();
+
+        // Wyświetlamy dane każdego użytkownika z tablicy
+        for (User user : users) {
+            System.out.println("User ID: " + user.getId());
+            System.out.println("Email: " + user.getEmail());
+            System.out.println("Username: " + user.getUserName());
+            System.out.println("Password: " + user.getPassword());
+            System.out.println("--------------");
+        }
+    }
 }

@@ -5,7 +5,7 @@ import pl.coderslab.DbUtil;
 
 import java.sql.*;
 import java.util.Arrays;
-
+import pl.coderslab.entity.User;
 public class UserDao {
 
     private static final String CREATE_USER_QUERY = " INSERT INTO workshop2.users (email, username,password) VALUES (?, ?, ?);";
@@ -19,7 +19,6 @@ public class UserDao {
             "WHERE id = ?; ";
     private static final String REMOVE_ID_QUERY = " DELETE FROM users WHERE id = ?; ";
     private static final String LIST_ALL_USERS_QUERY = " SELECT * FROM users; ";
-
 
 
     public String hashPassword(String password) {
@@ -44,7 +43,7 @@ public class UserDao {
             e.printStackTrace();
             return null;
         }
-        
+
     }
 
     public User read(int userId) {
@@ -96,4 +95,35 @@ public class UserDao {
         }
     }
 
+    private User[] addToArray(User u, User[] users) {
+        User[] tmpUsers = Arrays.copyOf(users, users.length + 1); // Tworzymy kopię tablicy powiększoną o 1.
+        tmpUsers[users.length] = u; // Dodajemy obiekt na ostatniej pozycji.
+        return tmpUsers; // Zwracamy nową tablicę.
     }
+
+    public User[] findAll() {
+        try (Connection conn = DbUtil.getConnection();
+             Statement statement = conn.createStatement();
+             ResultSet resultSet = statement.executeQuery(LIST_ALL_USERS_QUERY)) {
+
+            User[] users = new User[0]; // Początkowo tablica jest pusta
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String email = resultSet.getString("email");
+                String username = resultSet.getString("username");
+                String password = resultSet.getString("password");
+
+                User user = new User(id, email, username, password);
+                users = addToArray(user, users); // Dodajemy użytkownika do tablicy
+            }
+
+            return users;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new User[0]; // Zwracamy pustą tablicę w przypadku błędu
+        }
+    }
+}
+
