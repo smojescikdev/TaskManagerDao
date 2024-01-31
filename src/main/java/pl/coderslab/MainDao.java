@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class MainDao {
     public static void main(String[] args) {
-menuOption();
+        menuOption();
 
     }
 
@@ -18,48 +18,48 @@ menuOption();
         int inputMenu = 0;
 
         while (inputMenu != 6) {
-            System.out.println("---- MENU ----");
+            System.out.println(ConsoleColors.RED + "---- MENU ----");
             System.out.println("1: ADD USER");
             System.out.println("2: MODIFY USER");
             System.out.println("3: READ USER");
             System.out.println("4: DELETE USER");
             System.out.println("5: LIST USERS");
-            System.out.println("6: --EXIT--");
+            System.out.println("6: --EXIT--" + ConsoleColors.RESET);
 
             inputMenu = scanner.nextInt();
 
             switch (inputMenu) {
                 case 1:
-                    System.out.println("-- ADD USER --");
+                    System.out.println(ConsoleColors.GREEN + "-- ADD USER --\n");
                     createUser();
                     break;
 
                 case 2:
-                    System.out.println("-- MODIFY USER --");
-                   updateUser();
+                    System.out.println(ConsoleColors.YELLOW + "-- MODIFY USER --\n");
+                    updateUser();
                     break;
 
                 case 3:
-                    System.out.println("-- READ USER --");
+                    System.out.println(ConsoleColors.BLUE + "-- READ USER --\n");
                     readUser();
                     break;
 
                 case 4:
-                    System.out.println("-- DELETE USER --");
+                    System.out.println(ConsoleColors.CYAN + "-- DELETE USER --\n");
                     deleteUser();
                     break;
 
                 case 5:
-                    System.out.println("-- LIST USERS --");
+                    System.out.println(ConsoleColors.PURPLE + "-- LIST USERS --\n");
                     findAll();
                     break;
 
                 case 6:
-                    System.out.println("-- EXIT --");
+                    System.out.println(ConsoleColors.GREEN_BACKGROUND + "-- EXIT --\n");
                     break;
 
                 default:
-                    System.out.println("You entered an invalid option!");
+                    System.out.println("You entered an invalid option!\n");
             }
         }
 
@@ -90,7 +90,6 @@ menuOption();
         UserDao userDao = new UserDao();
         userDao.create(newUser);
 
-        System.out.println("USER " + username + "CREATED");
     }
 
     public static void readUser() {

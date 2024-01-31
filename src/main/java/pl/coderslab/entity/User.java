@@ -50,5 +50,5 @@ public class User {
         this.userName = username;
         this.password = password;
     }
-    
+
 }

@@ -1,11 +1,14 @@
 package pl.coderslab.entity;
 
 import org.mindrot.jbcrypt.BCrypt;
+import pl.coderslab.ConsoleColors;
 import pl.coderslab.DbUtil;
 
 import java.sql.*;
 import java.util.Arrays;
+
 import pl.coderslab.entity.User;
+
 public class UserDao {
 
     private static final String CREATE_USER_QUERY = " INSERT INTO workshop2.users (email, username,password) VALUES (?, ?, ?);";
@@ -38,9 +41,10 @@ public class UserDao {
             if (resultSet.next()) {
                 user.setId(resultSet.getInt(1));
             }
+            System.out.println("USER " + user.getUserName() + " CREATED");
             return user;
         } catch (SQLException e) {
-            System.out.println("Email is in the system registered:     " + user.getEmail() + e);
+            System.out.println(ConsoleColors.RED + " Email is in the system registered:     " + user.getEmail() + e + ConsoleColors.RESET);
             e.printStackTrace();
             return null;
         }
