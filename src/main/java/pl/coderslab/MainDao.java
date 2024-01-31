@@ -8,8 +8,62 @@ import java.util.Scanner;
 
 public class MainDao {
     public static void main(String[] args) {
-        findAll();
+menuOption();
 
+    }
+
+    public static void menuOption() {
+        Scanner scanner = new Scanner(System.in);
+
+        int inputMenu = 0;
+
+        while (inputMenu != 6) {
+            System.out.println("---- MENU ----");
+            System.out.println("1: ADD USER");
+            System.out.println("2: MODIFY USER");
+            System.out.println("3: READ USER");
+            System.out.println("4: DELETE USER");
+            System.out.println("5: LIST USERS");
+            System.out.println("6: --EXIT--");
+
+            inputMenu = scanner.nextInt();
+
+            switch (inputMenu) {
+                case 1:
+                    System.out.println("-- ADD USER --");
+                    createUser();
+                    break;
+
+                case 2:
+                    System.out.println("-- MODIFY USER --");
+                   updateUser();
+                    break;
+
+                case 3:
+                    System.out.println("-- READ USER --");
+                    readUser();
+                    break;
+
+                case 4:
+                    System.out.println("-- DELETE USER --");
+                    deleteUser();
+                    break;
+
+                case 5:
+                    System.out.println("-- LIST USERS --");
+                    findAll();
+                    break;
+
+                case 6:
+                    System.out.println("-- EXIT --");
+                    break;
+
+                default:
+                    System.out.println("You entered an invalid option!");
+            }
+        }
+
+        scanner.close();
     }
 
     public static void createUser() {
@@ -35,6 +89,8 @@ public class MainDao {
         // Tworzymy obiekt UserDao i wywołujemy metodę create, przekazując obiekt User
         UserDao userDao = new UserDao();
         userDao.create(newUser);
+
+        System.out.println("USER " + username + "CREATED");
     }
 
     public static void readUser() {

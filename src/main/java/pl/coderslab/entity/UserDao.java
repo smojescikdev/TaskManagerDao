@@ -40,6 +40,7 @@ public class UserDao {
             }
             return user;
         } catch (SQLException e) {
+            System.out.println("Email is in the system registered:     " + user.getEmail() + e);
             e.printStackTrace();
             return null;
         }
