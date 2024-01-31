@@ -7,21 +7,20 @@ import pl.coderslab.DbUtil;
 import java.sql.*;
 import java.util.Arrays;
 
-import pl.coderslab.entity.User;
 
 public class UserDao {
 
     private static final String CREATE_USER_QUERY = " INSERT INTO workshop2.users (email, username,password) VALUES (?, ?, ?);";
-    private static final String MODIFY_DATA_QUERY = "UPDATE users " +
+    private static final String MODIFY_DATA_QUERY = "UPDATE workshop2.users " +
             "SET email = ?, " +
             "username = ?, " +
             "password = ? " +
             "WHERE id = ?;";
     private static final String SELECT_ID_QUERY = " SELECT id, email, username, password\n" +
-            "FROM users\n" +
+            "FROM workshop2.users\n" +
             "WHERE id = ?; ";
-    private static final String REMOVE_ID_QUERY = " DELETE FROM users WHERE id = ?; ";
-    private static final String LIST_ALL_USERS_QUERY = " SELECT * FROM users; ";
+    private static final String REMOVE_ID_QUERY = " DELETE FROM workshop2.users WHERE id = ?; ";
+    private static final String LIST_ALL_USERS_QUERY = " SELECT * FROM workshop2.users; ";
 
 
     public String hashPassword(String password) {

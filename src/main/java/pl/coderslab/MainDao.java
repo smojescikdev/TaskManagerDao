@@ -3,7 +3,6 @@ package pl.coderslab;
 import pl.coderslab.entity.User;
 import pl.coderslab.entity.UserDao;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class MainDao {
